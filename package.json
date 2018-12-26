@@ -2,7 +2,7 @@
   "name": "bitcorelibtest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "decode_tx.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "bitcoinjs-lib": "^4.0.2",
     "bitcore-explorers": "^1.0.1",
-    "bitcore-lib": "^0.16.0"
+    "bitcore-lib": "^0.16.0",
+    "node-bitcoin-rpc": "^1.1.3"
   }
 }

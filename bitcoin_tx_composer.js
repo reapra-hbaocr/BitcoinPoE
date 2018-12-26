@@ -69,19 +69,11 @@ function create_p2ms_tx_info(wallet, utxo_info, data_chunks,n_numner=3,fee_rate=
    
     let n_out = Math.ceil(nchunk / n_numner);//round up
 
-    const keyPairs = [
-        bitcoin.ECPair.makeRandom({ network: network }),
-        bitcoin.ECPair.makeRandom({ network: network }),
-        bitcoin.ECPair.makeRandom({ network: network }),
-        bitcoin.ECPair.makeRandom({ network: network })
-      ]
-      var pubkeys = keyPairs.map(x => x.publicKey)
-      const pk2ms = bitcoin.payments.p2ms({ m: 1,pubkeys: pubkeys,network: network })
 
     for (let i = 0; i < n_out; i++) {
         let end_p = n_numner * (i + 1);
-        if (end_p > (n_out)) {
-            end_p = data_chunks.total_len;
+        if (end_p > nchunk) {
+            end_p = nchunk;
         }
         let ch = data_chunks.data.slice(n_numner * i, end_p);
         
@@ -111,11 +103,14 @@ function create_p2ms_tx_info(wallet, utxo_info, data_chunks,n_numner=3,fee_rate=
     let sriptpubK = p2pkh.output;
     txb.addOutput(sriptpubK, utxo_info.value - fee);
     txb.sign(0, wallet);
-    let rawTx = txb.build().toHex();
+    let rawTx = txb.build();
+    let hexTx=rawTx.toHex();
     //console.log(rawTx);
     let ret={};
     ret.fee = fee;
     ret.rawTx=rawTx;
+    ret.hexTx=hexTx;
+    ret.txId =rawTx.getId();
     return ret;
 }
 module.exports.create_op_return_tx_info=create_op_return_tx_info;
