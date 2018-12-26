@@ -20,6 +20,7 @@ function coppy_padding(_from,expected_sz,padding_val){
     }
     return dt;
 }
+
 function file_to_chunks(fpath, chunk_sz) {
     var chunks = {};
     let encode_opt = 'utf-8';
@@ -33,24 +34,13 @@ function file_to_chunks(fpath, chunk_sz) {
         if (end_p > (chunks.total_len)) {
             end_p = chunks.total_len;
         }
-
         let ch = fData.slice(chunk_sz * i, end_p);
-        // //padding zero to the end of data
-        // let dt = [];
-        // for (let k = 0; k < chunk_sz; k++) {
-        //     if (ch[k]) {
-        //         dt.push(ch[k]);
-        //     } else {
-        //         dt.push(0);//padding zero
-        //     }
-        // }
-        //coppy and padding
         let r=coppy_padding(ch,chunk_sz,0);
         chunks.data.push(r);
     }
 
     chunks.nchunk++;
-    let extra = Buffer.from('datasize='+chunks.total_len.toString(),'utf-8');
+    let extra = Buffer.from('@^_^@size='+chunks.total_len.toString()+'@^_^@','utf-8');
     let extra_dt=coppy_padding(extra,chunk_sz,0);
     chunks.data.push(extra_dt);
     return chunks;
