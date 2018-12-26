@@ -25,7 +25,10 @@ class BitcoinTxPush{
 
         axios.post(testnet_url,data, _config)
             .then((result) => {
-                console.log(result);
+                if(result.status==201){
+                    console.log('Submit OK')
+                }
+                console.log(result.status);
             })
             .catch((err) => {
                 console.error(err);

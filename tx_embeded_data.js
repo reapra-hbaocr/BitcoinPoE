@@ -8,6 +8,7 @@ let buf = embed_tx.buffer_from_chunks(chunk.data,chunk.total_len);
 embed_tx.buffer_to_file("o.png",buf);
 
 */
+var path = require('path');
 var fs = require('fs');
 function coppy_padding(_from,expected_sz,padding_val){
     let dt=[];
@@ -40,7 +41,9 @@ function file_to_chunks(fpath, chunk_sz) {
     }
 
     chunks.nchunk++;
-    let extra = Buffer.from('@^_^@size='+chunks.total_len.toString()+'@^_^@','utf-8');
+    let file_extension=path.extname(fpath);
+
+    let extra = Buffer.from('@^_^@size='+chunks.total_len.toString()+'@^_^@'+'*.ext='+file_extension+'@^_^@','utf-8');
     let extra_dt=coppy_padding(extra,chunk_sz,0);
     chunks.data.push(extra_dt);
     return chunks;
