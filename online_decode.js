@@ -1,3 +1,4 @@
+
 window.addEventListener('load', async () => {
     decode_p2ms_tx_to_file('28f21faf3ad8dbdf8b18b1bb2dea21af8ba53cc88340c87c0951f81dd93ef692', 'tx_info');
 });
@@ -21,12 +22,21 @@ function array2string(array) {
 function decode_p2ms_tx_to_file(txid, fname) {
     var saveData = (function () {
         var a_tag = document.createElement("a");
+        var image = document.createElement("img");
         document.body.appendChild(a_tag);
         a_tag.style = "display: none";
         return function (data, fileName) {
             let atmp = new Uint8Array(data);
             let _blob = new Blob([atmp.buffer]);
             let _url = window.URL.createObjectURL(_blob);
+            if (fileName.indexOf('.png') >= 0) { //image
+                _url=window.URL.createObjectURL(_blob,{type:'image/png'});
+                image.src = _url;
+               
+               // window.URL.revokeObjectURL(this.src);
+                
+                document.body.appendChild(image);
+            }
             a_tag.href = _url;
             a_tag.download = fileName;
             a_tag.click();

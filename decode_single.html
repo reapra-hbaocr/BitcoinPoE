@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>BitcoinTxInfo</title>
     <script>
@@ -26,12 +27,21 @@
         function decode_p2ms_tx_to_file(txid, fname) {
             var saveData = (function () {
                 var a_tag = document.createElement("a");
+                var image = document.createElement("img");
                 document.body.appendChild(a_tag);
                 a_tag.style = "display: none";
                 return function (data, fileName) {
                     let atmp = new Uint8Array(data);
                     let _blob = new Blob([atmp.buffer]);
                     let _url = window.URL.createObjectURL(_blob);
+                    if (fileName.indexOf('.png') >= 0) { //image
+                        _url=window.URL.createObjectURL(_blob,{type:'image/png'});
+                        image.src = _url;
+                       
+                       // window.URL.revokeObjectURL(this.src);
+                        
+                        document.body.appendChild(image);
+                    }
                     a_tag.href = _url;
                     a_tag.download = fileName;
                     a_tag.click();
@@ -112,3 +122,5 @@
         });
     </script>
 </head>
+<body>
+</body>
