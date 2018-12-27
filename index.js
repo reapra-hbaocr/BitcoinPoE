@@ -8,7 +8,7 @@ var bitcoinSubmit= require('./submit-signed-tx');
 
 var bSubmit = new bitcoinSubmit(false);
 
-var fname = 'BC_Logo_.png';
+var fname = 'download.html';
 let chunks = embed_tx.file_to_chunks(fname, 65);
 
 const wallet1 = bitcoin.ECPair.fromWIF('cUcTYjjc5hcivJdqjhvg57wSnpsfgaxzTWFtP8cP3J8cYqNPSAQF', TestNet);
@@ -20,8 +20,8 @@ console.log('p2pkh1 ', p2pkh1_addr);
 //addr:'mgtRUQJgZEJq2bWjm5Cyncfk8LQKqexmjq',
 let utxo_info = {
     value: 11608044,
-    txid: '28f21faf3ad8dbdf8b18b1bb2dea21af8ba53cc88340c87c0951f81dd93ef692',
-    vout_idx: 21
+    txid: 'f7500116393a275d919b8266b49576835d37bdce4560a9fc5319b2dc178d17ea',
+    vout_idx: 8
 }
 //fb4ae9c3b69ab621ab6b2221b55b6d3f0589f7906f1b02d5232236efdd15449a
 let ret=bitcoin_composer.create_p2ms_tx_info(wallet1,utxo_info,chunks,10,7000,1000);
